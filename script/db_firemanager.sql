@@ -23,6 +23,7 @@ email VARCHAR(60) NOT NULL UNIQUE,
 telefone CHAR(11) NOT NULL UNIQUE,
 senha VARCHAR(255) NOT NULL,
 fk_condominio INT,
+criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT chk_email CHECK (email LIKE '%@%'),
 CONSTRAINT fk_tipo_usuario FOREIGN KEY (fk_tipo_usuario) REFERENCES tb_tipo_usuarios(id),
 CONSTRAINT fk_condominio_usuario FOREIGN KEY (fk_condominio) REFERENCES tb_condominios(id)
