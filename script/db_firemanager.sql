@@ -53,9 +53,6 @@ id bigint PRIMARY KEY AUTO_INCREMENT,
 fk_servico bigint NOT NULL,
 fk_usuario bigint NOT NULL,
 quantidade int not null,
-status_saldo ENUM('valido', 'pendente', 'expirado') NOT NULL,
-data_compra DATETIME DEFAULT CURRENT_TIMESTAMP,
-data_validade DATE NOT NULL,
 CONSTRAINT fk_servico_saldo FOREIGN KEY (fk_servico) REFERENCES tb_servicos(id),
 CONSTRAINT fk_servico_usuario FOREIGN KEY (fk_usuario) REFERENCES tb_usuarios(id)
 );
