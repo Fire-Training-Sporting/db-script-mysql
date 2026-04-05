@@ -57,25 +57,25 @@ CONSTRAINT fk_servico_saldo FOREIGN KEY (fk_servico) REFERENCES tb_servicos(id),
 CONSTRAINT fk_servico_usuario FOREIGN KEY (fk_usuario) REFERENCES tb_usuarios(id)
 );
 
-
-CREATE TABLE tb_agendamentos(
-id bigint PRIMARY KEY AUTO_INCREMENT,
-fk_aluno bigint not null,
-fk_professor bigint not null,
-fk_auxiliar bigint,
-fk_servico bigint not null,
-fk_condominio bigint not null,
-data_agendamento date not null,
-hora_inicio time not null,
-observacao varchar(255),
-status enum('pendente', 'confirmado', 'cancelado', 'finalizado') default 'pendente',
-criado_em datetime default current_timestamp,
-atualizado_em datetime default current_timestamp,
-constraint fk_agendamento_aluno foreign key (fk_aluno) references tb_usuarios(id),
-constraint fk_agendamento_professor foreign key (fk_professor) references tb_usuarios(id),
-constraint fk_agendamento_auxiliar foreign key (fk_auxiliar) references tb_usuarios(id),
-constraint fk_agendamento_servico foreign key (fk_servico) references tb_servicos(id),
-constraint fk_agendamwnto_condominio foreign key (fk_condominio) references tb_condominios(id)
+CREATE TABLE tb_agendamentos (
+    id bigint PRIMARY KEY AUTO_INCREMENT,
+    fk_aluno bigint NOT NULL,
+    fk_professor bigint NOT NULL,
+    fk_auxiliar bigint,
+    fk_servico bigint NOT NULL,
+    fk_condominio bigint NOT NULL,
+    data_agendamento date NOT NULL,
+    hora_inicio time NOT NULL,
+    observacao varchar(255),
+    status enum('pendente', 'confirmado', 'cancelado', 'finalizado') DEFAULT 'pendente',
+    criado_em datetime DEFAULT CURRENT_TIMESTAMP,
+    atualizado_em datetime DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_agendamento_aluno FOREIGN KEY (fk_aluno) REFERENCES tb_usuarios(id),
+    CONSTRAINT fk_agendamento_professor FOREIGN KEY (fk_professor) REFERENCES tb_usuarios(id),
+    CONSTRAINT fk_agendamento_auxiliar FOREIGN KEY (fk_auxiliar) REFERENCES tb_usuarios(id),
+    CONSTRAINT fk_agendamento_servico FOREIGN KEY (fk_servico) REFERENCES tb_servicos(id),
+    CONSTRAINT fk_agendamento_condominio FOREIGN KEY (fk_condominio) REFERENCES tb_condominios(id),
+    CONSTRAINT uk_aluno_servico UNIQUE (fk_aluno, fk_servico)
 );
 
 show tables;
