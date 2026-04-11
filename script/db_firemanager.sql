@@ -79,15 +79,15 @@ CREATE TABLE tb_agendamentos (
 
 show tables;
 
-
 INSERT INTO tb_tipo_usuarios (cargo) VALUES
 ('root'),
-('administracao'),
-('professor'),
-('aluno');
+('Administracao'),
+('Professor'),
+('Aluno');
 
 select * from tb_usuarios;
 select * from tb_condominios;
 select * from tb_servicos;
 select * from tb_saldo_servicos;
 select * from tb_agendamentos;
+select * from tb_tipo_usuarios;
