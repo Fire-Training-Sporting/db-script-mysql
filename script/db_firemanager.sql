@@ -77,8 +77,6 @@ CREATE TABLE tb_agendamentos (
     CONSTRAINT fk_agendamento_condominio FOREIGN KEY (fk_condominio) REFERENCES tb_condominios(id)
 );
 
-show tables;
-
 INSERT INTO tb_tipo_usuarios (cargo) VALUES
 ('root'),
 ('Administracao'),
