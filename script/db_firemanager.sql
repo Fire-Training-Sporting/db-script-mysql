@@ -45,7 +45,8 @@ CONSTRAINT fk_permissao FOREIGN KEY (id_permissao) REFERENCES tb_permissoes(id)
 
 CREATE TABLE tb_servicos(
 id bigint PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(30) NOT NULL UNIQUE
+nome VARCHAR(30) NOT NULL UNIQUE,
+ativo BOOLEAN NOT NULL
 );
 
 CREATE TABLE tb_saldo_servicos(
@@ -82,6 +83,11 @@ INSERT INTO tb_tipo_usuarios (cargo) VALUES
 ('Administracao'),
 ('Professor'),
 ('Aluno');
+
+INSERT INTO tb_servicos (nome, ativo) VALUES
+('Tênis', true),
+('Funcional', true),
+('Beach Tennis', false);
 
 select * from tb_usuarios;
 select * from tb_condominios;
