@@ -89,6 +89,9 @@ INSERT INTO tb_servicos (nome, ativo) VALUES
 ('Funcional', true),
 ('Beach Tennis', false);
 
+INSERT INTO tb_condominios (nome, cidade, bairro, rua, numero) VALUES
+('Condomínio LIV', 'São Paulo', 'São Miguel Paulista', 'Rua Santo Antônio', '517');
+
 select * from tb_usuarios;
 select * from tb_condominios;
 select * from tb_servicos;
