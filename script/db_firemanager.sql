@@ -11,8 +11,9 @@ id BIGINT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(30) NOT NULL,
 cidade VARCHAR(60) NOT NULL,
 bairro VARCHAR(60) NOT NULL,
-rua VARCHAR(60) NOT NULL,
-numero VARCHAR(5) NOT NULL
+logradouro VARCHAR(60) NOT NULL,
+numero VARCHAR(5) NOT NULL,
+cep CHAR(8) NOT NULL
 );
 
 CREATE TABLE tb_usuarios(
@@ -89,8 +90,8 @@ INSERT INTO tb_servicos (nome, ativo) VALUES
 ('Funcional', true),
 ('Beach Tennis', false);
 
-INSERT INTO tb_condominios (nome, cidade, bairro, rua, numero) VALUES
-('Condomínio LIV', 'São Paulo', 'São Miguel Paulista', 'Rua Santo Antônio', '517');
+INSERT INTO tb_condominios (nome, cidade, bairro, logradouro, numero, cep) VALUES
+('Condomínio LIV', 'São Paulo', 'São Miguel Paulista', 'Rua Santo Antônio', '517', '09520650');
 
 select * from tb_usuarios;
 select * from tb_condominios;
