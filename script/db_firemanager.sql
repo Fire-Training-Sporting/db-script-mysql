@@ -11,9 +11,8 @@ id BIGINT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(30) NOT NULL,
 cidade VARCHAR(60) NOT NULL,
 bairro VARCHAR(60) NOT NULL,
-logradouro VARCHAR(60) NOT NULL,
-numero VARCHAR(5) NOT NULL,
-cep CHAR(8) NOT NULL
+rua VARCHAR(60) NOT NULL,
+numero VARCHAR(5) NOT NULL
 );
 
 CREATE TABLE tb_usuarios(
@@ -54,9 +53,18 @@ CREATE TABLE tb_saldo_servicos(
 id BIGINT PRIMARY KEY AUTO_INCREMENT,
 fk_servico BIGINT NOT NULL,
 fk_usuario BIGINT NOT NULL,
-quantidade INT NOT NULL,
+quantidade DOUBLE NOT NULL,
 CONSTRAINT fk_servico_saldo FOREIGN KEY (fk_servico) REFERENCES tb_servicos(id),
 CONSTRAINT fk_servico_usuario FOREIGN KEY (fk_usuario) REFERENCES tb_usuarios(id)
+);
+
+create table tb_saldo_transacoes(
+id bigint primary key auto_increment,
+fk_saldo bigint not null,
+quantidadeOriginal double,
+quantidadeRestante double,
+dataExpiracao date,
+criado_em date
 );
 
 CREATE TABLE tb_agendamentos (
@@ -68,6 +76,7 @@ CREATE TABLE tb_agendamentos (
     fk_condominio BIGINT NOT NULL,
     data_agendamento DATE NOT NULL,
     hora_inicio TIME NOT NULL,
+    hora_fim TIME NOT NULL,
     observacao VARCHAR(255),
     status ENUM('pendente', 'confirmado', 'cancelado', 'finalizado') DEFAULT 'pendente',
     criado_em datetime DEFAULT CURRENT_TIMESTAMP,
@@ -90,8 +99,14 @@ INSERT INTO tb_servicos (nome, ativo) VALUES
 ('Funcional', true),
 ('Beach Tennis', false);
 
-INSERT INTO tb_condominios (nome, cidade, bairro, logradouro, numero, cep) VALUES
-('Condomínio LIV', 'São Paulo', 'São Miguel Paulista', 'Rua Santo Antônio', '517', '09520650');
+
+INSERT INTO tb_usuarios (fk_tipo_usuario, nome, email, telefone, senha, fk_condominio)
+VALUES (1, 'Administrador2', 'adm1@fire.com', '11999999993', '123456', NULL);
+
+UPDATE tb_usuarios SET senha = '$2a$10$gerei_o_hash' WHERE email = 'adm@fire.com';
+
+INSERT INTO tb_condominios (nome, cidade, bairro, rua, numero) VALUES
+('Condomínio LIV', 'São Paulo', 'São Miguel Paulista', 'Rua Santo Antônio', '517');
 
 select * from tb_usuarios;
 select * from tb_condominios;
@@ -99,3 +114,5 @@ select * from tb_servicos;
 select * from tb_saldo_servicos;
 select * from tb_agendamentos;
 select * from tb_tipo_usuarios;
+
+
