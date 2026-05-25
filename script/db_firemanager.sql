@@ -64,16 +64,19 @@ fk_saldo bigint not null,
 quantidadeOriginal double,
 quantidadeRestante double,
 dataExpiracao date,
-criado_em date
+criado_em date,
+constraint fk_saldo_transacao foreign key (fk_saldo) references tb_saldo_servicos(id)
 );
 
 CREATE TABLE tb_agendamentos (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    fk_aluno BIGINT NOT NULL,
+    fk_aluno BIGINT NULL,
     fk_professor BIGINT NOT NULL,
     fk_auxiliar BIGINT,
+	fk_rebatedor BIGINT,
     fk_servico BIGINT NOT NULL,
     fk_condominio BIGINT NOT NULL,
+    tipo ENUM('individual', 'grupo') NOT NULL DEFAULT 'individual',
     data_agendamento DATE NOT NULL,
     hora_inicio TIME NOT NULL,
     hora_fim TIME NOT NULL,
@@ -84,8 +87,17 @@ CREATE TABLE tb_agendamentos (
     CONSTRAINT fk_agendamento_aluno FOREIGN KEY (fk_aluno) REFERENCES tb_usuarios(id),
     CONSTRAINT fk_agendamento_professor FOREIGN KEY (fk_professor) REFERENCES tb_usuarios(id),
     CONSTRAINT fk_agendamento_auxiliar FOREIGN KEY (fk_auxiliar) REFERENCES tb_usuarios(id),
+    CONSTRAINT fk_agendamento_rebatedor FOREIGN KEY (fk_rebatedor) REFERENCES tb_usuarios(id),
     CONSTRAINT fk_agendamento_servico FOREIGN KEY (fk_servico) REFERENCES tb_servicos(id),
     CONSTRAINT fk_agendamento_condominio FOREIGN KEY (fk_condominio) REFERENCES tb_condominios(id)
+);
+
+CREATE TABLE tb_agendamento_alunos (
+	fk_agendamento BIGINT NOT NULL,
+    fk_aluno BIGINT NOT NULL,
+	PRIMARY KEY (fk_agendamento, fk_aluno),
+	FOREIGN KEY (fk_agendamento) REFERENCES tb_agendamentos(id),
+	FOREIGN KEY (fk_aluno)REFERENCES tb_usuarios(id)
 );
 
 INSERT INTO tb_tipo_usuarios (cargo) VALUES
@@ -102,8 +114,6 @@ INSERT INTO tb_servicos (nome, ativo) VALUES
 
 INSERT INTO tb_usuarios (fk_tipo_usuario, nome, email, telefone, senha, fk_condominio)
 VALUES (1, 'Administrador2', 'adm1@fire.com', '11999999993', '123456', NULL);
-
-UPDATE tb_usuarios SET senha = '$2a$10$gerei_o_hash' WHERE email = 'adm@fire.com';
 
 INSERT INTO tb_condominios (nome, cidade, bairro, rua, numero) VALUES
 ('Condomínio LIV', 'São Paulo', 'São Miguel Paulista', 'Rua Santo Antônio', '517');
