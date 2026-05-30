@@ -8,11 +8,12 @@ cargo VARCHAR(25) NOT NULL UNIQUE
 
 CREATE TABLE tb_condominios(
 id BIGINT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(30) NOT NULL,
-cidade VARCHAR(60) NOT NULL,
+nome VARCHAR(30)  NOT NULL,
+cidade VARCHAR(60)  NOT NULL,
 bairro VARCHAR(60) NOT NULL,
-rua VARCHAR(60) NOT NULL,
-numero VARCHAR(5) NOT NULL
+logradouro VARCHAR(60),
+numero VARCHAR(5) NOT NULL,
+cep VARCHAR(9)
 );
 
 CREATE TABLE tb_usuarios(
@@ -76,7 +77,7 @@ CREATE TABLE tb_agendamentos (
 	fk_rebatedor BIGINT,
     fk_servico BIGINT NOT NULL,
     fk_condominio BIGINT NOT NULL,
-    tipo ENUM('individual', 'grupo') NOT NULL DEFAULT 'individual',
+    tipo ENUM('INDIVIDUAL', 'GRUPO') NOT NULL DEFAULT 'individual',
     data_agendamento DATE NOT NULL,
     hora_inicio TIME NOT NULL,
     hora_fim TIME NOT NULL,
@@ -93,7 +94,7 @@ CREATE TABLE tb_agendamentos (
 );
 
 CREATE TABLE tb_agendamento_alunos (
-	fk_agendamento BIGINT NOT NULL,
+	fk_agendamento	 BIGINT NOT NULL,
     fk_aluno BIGINT NOT NULL,
 	PRIMARY KEY (fk_agendamento, fk_aluno),
 	FOREIGN KEY (fk_agendamento) REFERENCES tb_agendamentos(id),
@@ -112,11 +113,8 @@ INSERT INTO tb_servicos (nome, ativo) VALUES
 ('Beach Tennis', false);
 
 
-INSERT INTO tb_usuarios (fk_tipo_usuario, nome, email, telefone, senha, fk_condominio)
-VALUES (1, 'Administrador2', 'adm1@fire.com', '11999999993', '123456', NULL);
-
-INSERT INTO tb_condominios (nome, cidade, bairro, rua, numero) VALUES
-('Condomínio LIV', 'São Paulo', 'São Miguel Paulista', 'Rua Santo Antônio', '517');
+INSERT INTO tb_condominios (nome, cidade, bairro, logradouro, numero, cep) VALUES
+('Condomínio LIV', 'São Paulo', 'São Miguel Paulista', 'Rua Santo Antônio', '517','0820030' );
 
 select * from tb_usuarios;
 select * from tb_condominios;
