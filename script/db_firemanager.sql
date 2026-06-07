@@ -124,3 +124,67 @@ select * from tb_agendamentos;
 select * from tb_tipo_usuarios;
 
 
+CREATE VIEW vw_agendamentos_completo AS
+SELECT
+    ag.id AS id_agendamento,
+
+    ag.tipo,
+    ag.data_agendamento,
+    ag.hora_inicio,
+    ag.hora_fim,
+    ag.observacao,
+    ag.status,
+    ag.criado_em,
+    ag.atualizado_em,
+
+    c.id AS id_condominio,
+    c.nome AS condominio,
+    c.cidade,
+    c.bairro,
+    c.logradouro,
+    c.numero,
+    c.cep,
+
+    s.id AS id_servico,
+    s.nome AS servico,
+    s.ativo,
+
+    al.id AS id_aluno,
+    al.nome AS aluno,
+    al.email AS email_aluno,
+    al.telefone AS telefone_aluno,
+
+    pr.id AS id_professor,
+    pr.nome AS professor,
+    pr.email AS email_professor,
+
+    ax.id AS id_auxiliar,
+    ax.nome AS auxiliar,
+
+    rb.id AS id_rebatedor,
+    rb.nome AS rebatedor
+
+FROM tb_agendamentos ag
+
+LEFT JOIN tb_usuarios al
+    ON ag.fk_aluno = al.id
+
+INNER JOIN tb_usuarios pr
+    ON ag.fk_professor = pr.id
+
+LEFT JOIN tb_usuarios ax
+    ON ag.fk_auxiliar = ax.id
+
+LEFT JOIN tb_usuarios rb
+    ON ag.fk_rebatedor = rb.id
+
+INNER JOIN tb_servicos s
+    ON ag.fk_servico = s.id
+
+INNER JOIN tb_condominios c
+    ON ag.fk_condominio = c.id;
+
+SELECT * FROM vw_agendamentos_completo;
+
+
+
